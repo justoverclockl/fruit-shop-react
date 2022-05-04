@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import MainLogo from '../assets/logo-main.png'
 
 const Home = () => {
+
     return (
         <div className="grid overflow-hidden md:grid-cols-2  gap-4 w-screen h-screen items-center relative">
             <div className="bg-watermelon h-full w-full bg-cover bg-center"></div>

@@ -3,22 +3,15 @@ import LoadingIndicator from './LoadingIndicator'
 import {useContext} from "react";
 import CartContext from "../context/CartContext";
 
-const Products = ({name,price}) => {
+const Products = () => {
     const {addToCart} = useContext(CartContext)
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(false)
-    const [cart, setCart] = useState([])
 
     useEffect(() => {
         getFruitsData()
     }, [])
 
-    /*const addToCart = (props) => {
-        cart.push(props)
-        setCart(cart)
-        console.log(cart)
-    }
-*/
     const getFruitsData = async () => {
         setLoading(true)
         try {
@@ -64,7 +57,7 @@ const Products = ({name,price}) => {
                                     {fruit.nutritions.fat}%
                                 </p>
                                 <p className="py-4">
-                                    <span id="price" className="font-bold">Prezzo: {fruit.price}</span>
+                                    <span id="price" className="font-bold">Prezzo: {fruit.price}€</span>
                                     <button onClick={() => addToCart(fruit)} className="p-2 bg-green-700 ml-4 rounded-lg text-white">
                                         Acquista
                                     </button>
