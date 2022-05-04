@@ -1,6 +1,9 @@
 import React from 'react'
+import {useContext} from "react";
+import CartContext from "../context/CartContext";
 
 const Cart = () => {
+    const {cart} = useContext(CartContext)
     return (
         <div className="absolute right-[0px] top-[90px] bg-zinc-200 w-[500px] h-[500px] p-4 rounded-xl">
             <div>
@@ -13,11 +16,16 @@ const Cart = () => {
                 <div>Quantità</div>
                 <div>Prezzo</div>
             </div>
-            <div className="mx-4 text-gray-700 flex items-center justify-between">
-                <div>Frutta 1</div>
-                <div>5</div>
-                <div className="font-bold">15€</div>
-            </div>
+            {cart.map((product) => {
+                return(
+                    <div className="mx-4 text-gray-700 flex items-center justify-between">
+                        <div>{product.product.name}</div>
+                        <div>1</div>
+                        <div className="font-bold">{product.product.price}</div>
+                    </div>
+                )
+            })}
+
         </div>
     )
 }

@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Badge from '@mui/material/Badge'
 import LogoNavBar from '../assets/logonavbar.png'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import Cart from './Cart'
+import CartContext from "../context/CartContext";
 
 const Navbar = () => {
+    const {cart} = useContext(CartContext)
     const [openCart, setOpenCart] = useState(false)
     const openCartDialog = () => setOpenCart(!openCart)
 
@@ -21,7 +23,7 @@ const Navbar = () => {
                     <li>
                         <Badge
                             className="cursor-pointer"
-                            badgeContent={10}
+                            badgeContent={cart.length}
                             color="success"
                         >
                             <ShoppingCartIcon onClick={openCartDialog} />
