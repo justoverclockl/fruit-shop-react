@@ -9,8 +9,12 @@ const Home = () => {
             <div className=""></div>
             <div className="flex justify-center items-center">
                 <div>
-                    <h1 className="font-bold text-5xl mb-2 text-amber-500">La frutta migliore</h1>
-                    <h2 className="text-right text-xl text-green-700">...a portata di click!</h2>
+                    <h1 className="font-bold text-5xl mb-2 text-amber-500">
+                        La frutta migliore
+                    </h1>
+                    <h2 className="text-right text-xl text-green-700">
+                        ...a portata di click!
+                    </h2>
                 </div>
             </div>
             <div className="bg-ananas h-full w-full bg-cover bg-center"></div>

@@ -10,7 +10,6 @@ const Navbar = () => {
     const { cart } = useContext(CartContext)
     const [openCart, setOpenCart] = useState(false)
     const openCartDialog = () => setOpenCart(!openCart)
-    console.log(cart)
 
     return (
         <div className="flex justify-between items-center px-8 py-8 bg-green-500 text-white">
@@ -35,7 +34,9 @@ const Navbar = () => {
                             color="success"
                         >
                             <div className="mr-4">
-                                {cart.length <= 0 ? "Il tuo carrello è vuoto" : false}
+                                {cart.length <= 0
+                                    ? 'Il tuo carrello è vuoto'
+                                    : `Il tuo carrello contiene ${cart.length} prodotto/i`}
                             </div>
                             <ShoppingCartIcon onClick={openCartDialog} />
                             {openCart && <Cart />}
