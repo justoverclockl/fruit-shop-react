@@ -3,12 +3,16 @@ import { Link } from 'react-router-dom'
 import MainLogo from '../assets/logo-main.png'
 
 const Home = () => {
-
     return (
         <div className="grid overflow-hidden md:grid-cols-2  gap-4 w-screen h-screen items-center relative">
             <div className="bg-watermelon h-full w-full bg-cover bg-center"></div>
             <div className=""></div>
-            <div className=""></div>
+            <div className="flex justify-center items-center">
+                <div>
+                    <h1 className="font-bold text-5xl mb-2 text-amber-500">La frutta migliore</h1>
+                    <h2 className="text-right text-xl text-green-700">...a portata di click!</h2>
+                </div>
+            </div>
             <div className="bg-ananas h-full w-full bg-cover bg-center"></div>
             <div className="absolute inset-x-0 shadow-xl bg-white w-[200px] h-[200px] flex flex-col justify-center items-center mx-auto -mt-1 rounded-lg">
                 <img src={MainLogo} alt="main logo" />
