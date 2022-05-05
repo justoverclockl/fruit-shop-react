@@ -34,15 +34,13 @@ const Navbar = () => {
                             color="success"
                         >
                             <div className="mr-4">
-                                {
-                                    cart.length <= 0
+                                {cart.length <= 0
                                     ? 'Il tuo carrello è vuoto'
                                     : cart.length === 1
                                     ? `Il tuo carrello contiene ${cart.length} prodotto`
                                     : cart.length > 1
                                     ? `Il tuo carrello contiene ${cart.length} prodotti`
-                                    : null
-                                }
+                                    : null}
                             </div>
                             <ShoppingCartIcon onClick={openCartDialog} />
                             {openCart && <Cart />}

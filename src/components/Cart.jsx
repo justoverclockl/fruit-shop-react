@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useContext } from 'react'
 import CartContext from '../context/CartContext'
 import { v4 as randomId } from 'uuid'

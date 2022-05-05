@@ -3,12 +3,17 @@ import LoadingIndicator from './LoadingIndicator'
 import { useContext } from 'react'
 import TextField from '@mui/material/TextField'
 import CartContext from '../context/CartContext'
+import SingleFruitPopup from './SingleFruitPopup'
 
 const Products = () => {
     const { addToCart } = useContext(CartContext)
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(false)
+    const [popup, setPopup] = useState(false)
+    const [popupData, setPopupData] = useState(null)
     const [search, setSearch] = useState('')
+
+    const togglePopup = () => setPopup(!popup)
 
     useEffect(() => {
         getFruitsData()
@@ -42,7 +47,7 @@ const Products = () => {
                     fullWidth
                 />
             </div>
-            <div className="grid mx-auto justify-center items-center w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            <div className="relative grid mx-auto justify-center items-center w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                 {loading ? <LoadingIndicator /> : false}
                 {products
                     .filter((fruit) => {
@@ -83,16 +88,28 @@ const Products = () => {
                                     <span id="price" className="font-bold">
                                         Prezzo: {fruit.price}€
                                     </span>
-                                    <button
-                                        onClick={() => addToCart(fruit)}
-                                        className="p-2 bg-green-700 ml-4 rounded-lg text-white"
-                                    >
-                                        Acquista
-                                    </button>
                                 </p>
+                                <button
+                                    onClick={() => addToCart(fruit)}
+                                    className="p-2 bg-green-700 hover:bg-green-500 ml-4 rounded-lg text-white"
+                                >
+                                    Acquista
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        setPopupData(fruit)
+                                        togglePopup()
+                                    }}
+                                    className="p-2 bg-orange-400 hover:bg-orange-600 ml-4 rounded-lg text-white"
+                                >
+                                    Dettagli
+                                </button>
                             </div>
                         </div>
                     ))}
+                {popup && (
+                    <SingleFruitPopup state={setPopup} fruit={popupData} />
+                )}
             </div>
         </div>
     )
