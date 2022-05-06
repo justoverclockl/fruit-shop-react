@@ -4,37 +4,16 @@ import { useContext } from 'react'
 import TextField from '@mui/material/TextField'
 import CartContext from '../context/CartContext'
 import SingleFruitPopup from './SingleFruitPopup'
+import {useFruitApi} from "../hooks/useFruitApi";
 
 const Products = () => {
     const { addToCart } = useContext(CartContext)
-    const [products, setProducts] = useState([])
-    const [loading, setLoading] = useState(false)
     const [popup, setPopup] = useState(false)
     const [popupData, setPopupData] = useState(null)
     const [search, setSearch] = useState('')
-
+    const [products, loading] = useFruitApi()
     const togglePopup = () => setPopup(!popup)
 
-    useEffect(() => {
-        getFruitsData()
-    }, [])
-
-    const getFruitsData = async () => {
-        setLoading(true)
-        try {
-            const data = await fetch(
-                'https://fruits-develhope.herokuapp.com/api'
-            )
-            if (data.ok) {
-                const result = await data.json()
-                setProducts(() => result.fruits)
-                setLoading(false)
-                return result
-            }
-        } catch (err) {
-            console.log(err)
-        }
-    }
     return (
         <div className="max-w-[1100px] mx-auto py-8 w-full my-20 min-h-[750px]">
             <div id="search" className="mb-16 w-full flex items-center">
