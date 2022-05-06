@@ -10,7 +10,7 @@ const SingleFruitPopup = ({ fruit, state }) => {
     }
 
     return (
-        <div className="h-screen w-screen fixed top-1/2 flex items-center left-1/2 transform -translate-y-1/2 -translate-x-1/2 backdrop-blur-md z-30">
+        <div className="h-screen w-screen fixed top-1/2 flex items-center left-1/2 transform -translate-y-1/2 -translate-x-1/2 backdrop-blur-md z-30 hover:scale-110 duration-1000">
             <div className="flex flex-col justify-center items-center inset-x-0 shadow-xl bg-green-300 text-green-800 w-[500px] h-[600px] mx-auto -mt-1 rounded-xl">
                 <h1 className="font-bold text-4xl mb-4">{fruit.name}</h1>
                 <img

@@ -27,7 +27,7 @@ const Products = () => {
             )
             if (data.ok) {
                 const result = await data.json()
-                setProducts(result.fruits)
+                setProducts(() => result.fruits)
                 setLoading(false)
                 return result
             }

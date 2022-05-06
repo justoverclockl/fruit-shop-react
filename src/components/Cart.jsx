@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { useContext } from 'react'
 import CartContext from '../context/CartContext'
 import { v4 as randomId } from 'uuid'
@@ -7,6 +7,7 @@ import PointOfSaleSharpIcon from '@mui/icons-material/PointOfSaleSharp'
 
 const Cart = () => {
     const { cart } = useContext(CartContext)
+    const [cartItems, setCartItems] = useState([])
 
     const productsTotal = Array.from(cart)
         .map((item) =>
@@ -15,11 +16,18 @@ const Cart = () => {
         .reduce((acc, curr) => acc + Number(curr), 0)
         .toFixed(2)
 
+    const deleteItem = (event) => {
+        setCartItems((prevState) => [...prevState, { cartItems }])
+        const itemCode = event.target.parentNode.parentNode.parentNode.getAttribute("data-code")
+        const findIndex = cart.findIndex(item => item.buyId === itemCode)
+        setCartItems(cart.splice(findIndex,1))
+    }
+
     return (
         <div className="absolute z-10 right-[0px] top-[90px] bg-zinc-100 shadow-xl w-fit min-w-[500px] h-fit p-4 rounded-xl">
             <div>
                 <h1 className="text-gray-600 font-bold text-2xl text-center mb-12">
-                    Il tuo Carrello
+                    {cart.length <= 0 ? 'Il tuo carrello è vuoto' : 'Prodotti nel Carrello'}
                 </h1>
             </div>
             <div className="mx-4 mt-4 mb-4 text-gray-700 flex items-center justify-between">
@@ -31,7 +39,7 @@ const Cart = () => {
             {cart.map((product) => {
                 return (
                     <div
-                        id={randomId()}
+                        data-code={product.buyId}
                         key={randomId()}
                         className="mx-4 text-gray-700 flex items-center justify-between"
                     >
@@ -54,7 +62,7 @@ const Cart = () => {
                         <div className="font-bold min-w-[45px] text-right">
                             {product.product.price}€
                         </div>
-                        <button>
+                        <button onClick={(event) => deleteItem(event)}>
                             <DeleteForeverIcon />
                         </button>
                     </div>

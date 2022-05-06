@@ -1,4 +1,5 @@
 import { createContext, useState } from 'react'
+import { v4 as randomId } from 'uuid'
 
 const CartContext = createContext()
 
@@ -6,7 +7,7 @@ export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState([])
 
     const addToCart = (product) => {
-        setCart((prevState) => [...prevState, { product }])
+        setCart((prevState) => [...prevState, { product, buyId: randomId() }])
     }
 
     return (
