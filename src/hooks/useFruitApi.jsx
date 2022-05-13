@@ -1,16 +1,17 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from 'react'
 
 export const useFruitApi = () => {
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        (async () => {
+        ;(async () => {
             setLoading(true)
             try {
                 const data = await fetch(
-                    'https://fruits-develhope.herokuapp.com/api', {
-                        cache: 'force-cache'
+                    'https://fruits-develhope.herokuapp.com/api',
+                    {
+                        cache: 'force-cache',
                     }
                 )
                 if (data.ok) {

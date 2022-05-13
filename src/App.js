@@ -6,6 +6,7 @@ import Home from './components/Home'
 import Store from './components/Store'
 import ErrorPage from './components/ErrorPage'
 import { CartProvider } from './context/CartContext'
+import ReduxTest from "./components/ReduxTest";
 
 function App() {
     const [pageTitle, setPageTitle] = useState(
@@ -28,6 +29,10 @@ function App() {
                     <Route
                         path="/shop"
                         element={<Store props={setPageTitle} />}
+                    />
+                    <Route
+                        path="/redux"
+                        element={<ReduxTest />}
                     />
                     {/* Ultima Route per le error Page */}
                     <Route path="*" element={<ErrorPage />} />

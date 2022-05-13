@@ -5,11 +5,16 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import Cart from './Cart'
 import { Link } from 'react-router-dom'
 import CartContext from '../context/CartContext'
+import HowToRegIcon from '@mui/icons-material/HowToReg'
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
 
 const Navbar = () => {
     const { cart } = useContext(CartContext)
     const [openCart, setOpenCart] = useState(false)
-    const openCartDialog = () => setOpenCart(!openCart)
+
+    const changePopupState = () => {
+        setOpenCart(!openCart)
+    }
 
     return (
         <div className="flex justify-between items-center px-8 py-8 bg-green-500 text-white">
@@ -26,7 +31,7 @@ const Navbar = () => {
                 </h1>
             </div>
             <div>
-                <ul>
+                <ul className="flex flex-wrap flex-row items-center">
                     <li>
                         <Badge
                             className="cursor-pointer"
@@ -42,9 +47,21 @@ const Navbar = () => {
                                     ? `Il tuo carrello contiene ${cart.length} prodotti`
                                     : null}
                             </div>
-                            <ShoppingCartIcon onClick={openCartDialog} />
+                            <ShoppingCartIcon onClick={changePopupState} />
                             {openCart && <Cart />}
                         </Badge>
+                    </li>
+                    <li>
+                        <button className="bg-orange-400 p-2 rounded-lg hover:bg-orange-600">
+                            <AppRegistrationIcon className="mr-2" />
+                            Registrati
+                        </button>
+                    </li>
+                    <li>
+                        <button className="bg-green-700 p-2 rounded-lg hover:bg-green-600">
+                            <HowToRegIcon className="mr-2" />
+                            Login
+                        </button>
                     </li>
                 </ul>
             </div>

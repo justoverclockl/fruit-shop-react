@@ -1,18 +1,28 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import LoadingIndicator from './LoadingIndicator'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import TextField from '@mui/material/TextField'
 import CartContext from '../context/CartContext'
 import SingleFruitPopup from './SingleFruitPopup'
-import {useFruitApi} from "../hooks/useFruitApi";
+import Social from './Social'
+import ScrollToTop from './ScrollToTop'
+import { useDispatch, useSelector } from 'react-redux'
+import { getProducts } from '../states/storeSlice'
 
 const Products = () => {
     const { addToCart } = useContext(CartContext)
     const [popup, setPopup] = useState(false)
     const [popupData, setPopupData] = useState(null)
     const [search, setSearch] = useState('')
-    const [products, loading] = useFruitApi()
     const togglePopup = () => setPopup(!popup)
+
+    const allFruits = useSelector((state) => state.products.fruits)
+    const isLoading = useSelector((state) => state.products.isLoading)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getProducts())
+    }, [dispatch])
 
     return (
         <div className="max-w-[1100px] mx-auto py-8 w-full my-20 min-h-[750px]">
@@ -27,8 +37,8 @@ const Products = () => {
                 />
             </div>
             <div className="relative grid mx-auto justify-center items-center w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-                {loading ? <LoadingIndicator /> : false}
-                {products
+                {isLoading ? <LoadingIndicator /> : false}
+                {allFruits.fruits
                     .filter((fruit) => {
                         if (search === '') {
                             return fruit
@@ -90,6 +100,8 @@ const Products = () => {
                     <SingleFruitPopup state={setPopup} fruit={popupData} />
                 )}
             </div>
+            <ScrollToTop />
+            <Social />
         </div>
     )
 }
