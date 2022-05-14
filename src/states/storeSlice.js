@@ -1,15 +1,14 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-export const getProducts = createAsyncThunk('products/getFruits',
-    async () => {
+export const getProducts = createAsyncThunk('products/getFruits', async () => {
     const url = 'https://fruits-develhope.herokuapp.com/api'
     const response = await fetch(url)
-    const data = await response.json()
-    return data
+    return await response.json()
 })
 
 const initialState = {
     fruits: [],
+    error: '',
     isLoading: true,
 }
 
@@ -27,6 +26,7 @@ const storeState = createSlice({
             })
             .addCase(getProducts.rejected, (state) => {
                 state.isLoading = false
+                state.error = 'Impossibile caricare i dati dal server!'
             })
             .addDefaultCase((state, action) => {
                 state.fruits = initialState

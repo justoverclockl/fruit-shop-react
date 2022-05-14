@@ -5,11 +5,16 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import Cart from './Cart'
 import { Link } from 'react-router-dom'
 import CartContext from '../context/CartContext'
-import HowToRegIcon from '@mui/icons-material/HowToReg'
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
+import { useSelector } from 'react-redux'
+import RegisterLoginButtons from './RegisterLoginButtons'
+import { selectUser } from '../states/registerSlice'
+import NavbarProfile from './NavbarProfile'
 
 const Navbar = () => {
     const { cart } = useContext(CartContext)
+    const user = useSelector(selectUser)
+    const isEmpty = Object.keys(user).length === 0
+    console.log(user, isEmpty)
     const [openCart, setOpenCart] = useState(false)
 
     const changePopupState = () => {
@@ -51,18 +56,11 @@ const Navbar = () => {
                             {openCart && <Cart />}
                         </Badge>
                     </li>
-                    <li>
-                        <button className="bg-orange-400 p-2 rounded-lg hover:bg-orange-600">
-                            <AppRegistrationIcon className="mr-2" />
-                            Registrati
-                        </button>
-                    </li>
-                    <li>
-                        <button className="bg-green-700 p-2 rounded-lg hover:bg-green-600">
-                            <HowToRegIcon className="mr-2" />
-                            Login
-                        </button>
-                    </li>
+                    {isEmpty ? (
+                        <RegisterLoginButtons />
+                    ) : (
+                        <NavbarProfile props={user} />
+                    )}
                 </ul>
             </div>
         </div>

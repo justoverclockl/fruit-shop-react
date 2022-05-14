@@ -1,39 +1,22 @@
 import './App.css'
 import '@fontsource/lato'
-import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Home from './components/Home'
-import Store from './components/Store'
-import ErrorPage from './components/ErrorPage'
+import Home from './pages/Home'
+import Store from './pages/Store'
+import ErrorPage from './pages/ErrorPage'
+import Register from './components/Register'
 import { CartProvider } from './context/CartContext'
-import ReduxTest from "./components/ReduxTest";
+import ReduxTest from './components/ReduxTest'
 
 function App() {
-    const [pageTitle, setPageTitle] = useState(
-        'Fruit Store - la migliore frutta a casa tua'
-    )
-
-    useEffect(() => {
-        document.title = pageTitle
-    }, [pageTitle])
-
     return (
         <CartProvider>
             <Router>
                 <Routes>
-                    <Route
-                        exact
-                        path="/"
-                        element={<Home props={setPageTitle} />}
-                    />
-                    <Route
-                        path="/shop"
-                        element={<Store props={setPageTitle} />}
-                    />
-                    <Route
-                        path="/redux"
-                        element={<ReduxTest />}
-                    />
+                    <Route exact path="/" element={<Home />} />
+                    <Route path="/shop" element={<Store />} />
+                    <Route path="/redux" element={<ReduxTest />} />
+                    <Route path="/login" element={<Register />} />
                     {/* Ultima Route per le error Page */}
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>

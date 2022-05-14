@@ -18,6 +18,7 @@ const Products = () => {
 
     const allFruits = useSelector((state) => state.products.fruits)
     const isLoading = useSelector((state) => state.products.isLoading)
+    const error = useSelector((state) => state.products.error)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -37,6 +38,10 @@ const Products = () => {
                 />
             </div>
             <div className="relative grid mx-auto justify-center items-center w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                {error !== '' ? (
+                    <h1 className="font-bold text-xl">{error}</h1>
+                ) : null}
+
                 {isLoading ? <LoadingIndicator /> : false}
                 {allFruits.fruits
                     .filter((fruit) => {
