@@ -14,7 +14,6 @@ const Navbar = () => {
     const { cart } = useContext(CartContext)
     const user = useSelector(selectUser)
     const isEmpty = Object.keys(user).length === 0
-    console.log(user, isEmpty)
     const [openCart, setOpenCart] = useState(false)
 
     const changePopupState = () => {

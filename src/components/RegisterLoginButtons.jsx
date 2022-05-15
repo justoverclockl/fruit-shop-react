@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
-import HowToRegIcon from '@mui/icons-material/HowToReg'
 
 const RegisterLoginButtons = () => {
     return (
@@ -13,12 +12,6 @@ const RegisterLoginButtons = () => {
                         Registrati
                     </button>
                 </Link>
-            </li>
-            <li>
-                <button className="bg-green-700 p-2 rounded-lg hover:bg-green-600">
-                    <HowToRegIcon className="mr-2" />
-                    Login
-                </button>
             </li>
         </>
     )

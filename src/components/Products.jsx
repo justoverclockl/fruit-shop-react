@@ -8,6 +8,7 @@ import Social from './Social'
 import ScrollToTop from './ScrollToTop'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProducts } from '../states/storeSlice'
+import { insertInCart } from '../states/cartSlice'
 
 const Products = () => {
     const { addToCart } = useContext(CartContext)
@@ -16,10 +17,14 @@ const Products = () => {
     const [search, setSearch] = useState('')
     const togglePopup = () => setPopup(!popup)
 
+    // sezione redux
     const allFruits = useSelector((state) => state.products.fruits)
     const isLoading = useSelector((state) => state.products.isLoading)
     const error = useSelector((state) => state.products.error)
     const dispatch = useDispatch()
+
+    // cart slice
+    const personalCart = useSelector((state) => state.cart.cart)
 
     useEffect(() => {
         dispatch(getProducts())
@@ -72,12 +77,18 @@ const Products = () => {
                                 className="w-full h-[150px] bg-contain bg-center bg-no-repeat hover:scale-110 duration-500 my-4 overflow-hidden"
                             ></div>
                             <div>
-                                <p>
-                                    Carboidrati:{' '}
-                                    {fruit.nutritions.carbohydrates}, Proteine:{' '}
-                                    {fruit.nutritions.protein}, Grassi:{' '}
-                                    {fruit.nutritions.fat}%
-                                </p>
+                                <div className="flex flex-wrap items-center text-sm justify-center">
+                                    <div className="bg-zinc-200 text-black p-[.2rem] rounded-md mr-2 mb-2">
+                                        Carboidrati:{' '}
+                                        {fruit.nutritions.carbohydrates}
+                                    </div>
+                                    <div className="bg-zinc-200 text-black p-[.2rem] rounded-md mr-2 mb-2">
+                                        Proteine: {fruit.nutritions.protein}
+                                    </div>
+                                    <div className="bg-zinc-200 text-black p-[.2rem] rounded-md mr-2 mb-2">
+                                        Grassi: {fruit.nutritions.fat}%
+                                    </div>
+                                </div>
                                 <p className="py-4">
                                     <span id="price" className="font-bold">
                                         Prezzo: {fruit.price}€
