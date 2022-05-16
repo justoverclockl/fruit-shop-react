@@ -25,6 +25,7 @@ const Products = () => {
 
     // cart slice
     const personalCart = useSelector((state) => state.cart.cart)
+    console.log(personalCart)
 
     useEffect(() => {
         dispatch(getProducts())
@@ -74,7 +75,7 @@ const Products = () => {
                                 style={{
                                     backgroundImage: 'url(' + fruit.image + ')',
                                 }}
-                                className="w-full h-[150px] bg-contain bg-center bg-no-repeat hover:scale-110 duration-500 my-4 overflow-hidden"
+                                className="w-full h-[150px] bg-contain bg-center bg-no-repeat hover:scale-110 duration-500 my-4 overflow-hidden shadow-xl rounded-xl"
                             ></div>
                             <div>
                                 <div className="flex flex-wrap items-center text-sm justify-center">
@@ -89,26 +90,28 @@ const Products = () => {
                                         Grassi: {fruit.nutritions.fat}%
                                     </div>
                                 </div>
-                                <p className="py-4">
+                                <p className="py-4 text-center">
                                     <span id="price" className="font-bold">
                                         Prezzo: {fruit.price}€
                                     </span>
                                 </p>
-                                <button
-                                    onClick={() => addToCart(fruit)}
-                                    className="p-2 bg-green-700 hover:bg-green-500 ml-4 rounded-lg text-white"
-                                >
-                                    Acquista
-                                </button>
-                                <button
-                                    onClick={() => {
-                                        setPopupData(fruit)
-                                        togglePopup()
-                                    }}
-                                    className="p-2 bg-orange-400 hover:bg-orange-600 ml-4 rounded-lg text-white"
-                                >
-                                    Dettagli
-                                </button>
+                                <div className="text-center">
+                                    <button
+                                        onClick={() => addToCart(fruit)}
+                                        className="p-2 bg-green-700 hover:bg-green-500 ml-4 rounded-lg text-white"
+                                    >
+                                        Acquista
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            setPopupData(fruit)
+                                            togglePopup()
+                                        }}
+                                        className="p-2 bg-orange-400 hover:bg-orange-600 ml-4 rounded-lg text-white"
+                                    >
+                                        Dettagli
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     ))}
