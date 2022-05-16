@@ -75,7 +75,7 @@ const Products = () => {
                                 style={{
                                     backgroundImage: 'url(' + fruit.image + ')',
                                 }}
-                                className="w-full h-[150px] bg-contain bg-center bg-no-repeat hover:scale-110 duration-500 my-4 overflow-hidden shadow-xl rounded-xl"
+                                className="w-full h-[150px] bg-contain bg-center bg-no-repeat hover:scale-110 duration-500 my-4 overflow-hidden"
                             ></div>
                             <div>
                                 <div className="flex flex-wrap items-center text-sm justify-center">
