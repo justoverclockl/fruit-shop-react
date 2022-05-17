@@ -22,6 +22,7 @@ export const cartSlice = createSlice({
                     return Number(parse)
                 })
                 .reduce((acc, curr) => acc + curr, 0)
+                .toFixed(2)
         },
         removeFromCart: (state, action) => {
             state.itemInCart -= 1
@@ -36,6 +37,7 @@ export const cartSlice = createSlice({
                     return Number(parse)
                 })
                 .reduce((acc, curr) => acc + curr, 0)
+                .toFixed(2)
         },
     },
 })

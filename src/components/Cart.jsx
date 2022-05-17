@@ -1,9 +1,9 @@
 import { useRef } from 'react'
 import { v4 as randomId } from 'uuid'
+import CloseIcon from '@mui/icons-material/Close'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import PointOfSaleSharpIcon from '@mui/icons-material/PointOfSaleSharp'
 import {
-    cartSlice,
     productsInCart,
     totalPrice,
     cartTotalItems,
@@ -14,10 +14,8 @@ import { useDispatch, useSelector } from 'react-redux'
 const Cart = () => {
     const dispatch = useDispatch()
     const insideCart = useSelector(productsInCart)
-    console.log(insideCart)
     const getTotalPrice = useSelector(totalPrice)
     const totalItemsInCart = useSelector(cartTotalItems)
-
     const popupDiv = useRef(null)
 
     return (
@@ -26,6 +24,9 @@ const Cart = () => {
             ref={popupDiv}
         >
             <div>
+                <div className="text-right text-black">
+                    <CloseIcon />
+                </div>
                 <h1 className="text-gray-600 font-bold text-2xl text-center mb-12">
                     {totalItemsInCart <= 0
                         ? 'Il tuo carrello è vuoto'

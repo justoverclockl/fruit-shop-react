@@ -29,11 +29,10 @@ const Products = () => {
     const error = useSelector(errorState)
     const dispatch = useDispatch()
 
-    // cart slice
-    const personalCart = useSelector((state) => state.cart.cart)
-
     useEffect(() => {
-        if (fruitStatus === 'idle') dispatch(getProducts())
+        if (fruitStatus !== 'succeeded') {
+            dispatch(getProducts())
+        }
     }, [fruitStatus, dispatch])
 
     return (
