@@ -1,30 +1,24 @@
-import { useContext, useRef, useState } from 'react'
-import CartContext from '../context/CartContext'
+import { useRef } from 'react'
 import { v4 as randomId } from 'uuid'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import PointOfSaleSharpIcon from '@mui/icons-material/PointOfSaleSharp'
+import {
+    cartSlice,
+    productsInCart,
+    totalPrice,
+    cartTotalItems,
+    removeFromCart,
+} from '../states/cartSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Cart = () => {
-    const { cart } = useContext(CartContext)
+    const dispatch = useDispatch()
+    const insideCart = useSelector(productsInCart)
+    console.log(insideCart)
+    const getTotalPrice = useSelector(totalPrice)
+    const totalItemsInCart = useSelector(cartTotalItems)
+
     const popupDiv = useRef(null)
-    const [cartItems, setCartItems] = useState([])
-
-    const productsTotal = Array.from(cart)
-        .map((item) =>
-            parseFloat(item.product.price.replace(/,/g, '.')).toFixed(2)
-        )
-        .reduce((acc, curr) => acc + Number(curr), 0)
-        .toFixed(2)
-
-    const deleteItem = (event) => {
-        setCartItems((prevState) => [...prevState, { cartItems }])
-        const itemCode =
-            event.target.parentNode.parentNode.parentNode.getAttribute(
-                'data-code'
-            )
-        const findIndex = cart.findIndex((item) => item.buyId === itemCode)
-        setCartItems(cart.splice(findIndex, 1))
-    }
 
     return (
         <div
@@ -33,7 +27,7 @@ const Cart = () => {
         >
             <div>
                 <h1 className="text-gray-600 font-bold text-2xl text-center mb-12">
-                    {cart.length <= 0
+                    {totalItemsInCart <= 0
                         ? 'Il tuo carrello è vuoto'
                         : 'Prodotti nel Carrello'}
                 </h1>
@@ -44,7 +38,7 @@ const Cart = () => {
                 <div>Prezzo</div>
                 <div>Rimuovi</div>
             </div>
-            {cart.map((product) => {
+            {insideCart.map((product) => {
                 return (
                     <div
                         data-code={product.buyId}
@@ -54,10 +48,10 @@ const Cart = () => {
                         <div className="flex flex-row items-center flex-wrap min-w-[150px]">
                             <img
                                 className="rounded-[100%] w-[50px] mr-2"
-                                src={product.product.image}
-                                alt={product.product.name}
+                                src={product.image}
+                                alt={product.name}
                             />
-                            {product.product.name}
+                            {product.name}
                         </div>
                         <div className="flex">
                             <input
@@ -68,9 +62,11 @@ const Cart = () => {
                             />
                         </div>
                         <div className="font-bold min-w-[45px] text-right">
-                            {product.product.price}€
+                            {product.price}€
                         </div>
-                        <button onClick={(e) => deleteItem(e)}>
+                        <button
+                            onClick={() => dispatch(removeFromCart(product))}
+                        >
                             <DeleteForeverIcon />
                         </button>
                     </div>
@@ -78,7 +74,7 @@ const Cart = () => {
             })}
             <div className="mx-4 mt-8 font-bold text-gray-700 flex flex-col items-center justify-between">
                 <div className="bg-green-700 w-full text-white text-center p-2 rounded-lg">
-                    Totale: {productsTotal} €
+                    Totale: {getTotalPrice} €
                 </div>
                 <button className="bg-amber-500 hover:bg-amber-600 p-3 mt-4 w-full text-white rounded-lg">
                     <PointOfSaleSharpIcon /> Paga Ora

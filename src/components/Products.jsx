@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import LoadingIndicator from './LoadingIndicator'
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 import TextField from '@mui/material/TextField'
-import CartContext from '../context/CartContext'
 import SingleFruitPopup from './SingleFruitPopup'
 import Social from './Social'
 import ScrollToTop from './ScrollToTop'
+import { v4 as randomId } from 'uuid'
 import { useDispatch, useSelector } from 'react-redux'
 import {
     getProducts,
@@ -17,7 +17,6 @@ import {
 import { insertInCart } from '../states/cartSlice'
 
 const Products = () => {
-    const { addToCart } = useContext(CartContext)
     const [popup, setPopup] = useState(false)
     const [popupData, setPopupData] = useState(null)
     const [search, setSearch] = useState('')
@@ -104,7 +103,12 @@ const Products = () => {
                                 <div className="text-center">
                                     <button
                                         onClick={() =>
-                                            dispatch(insertInCart(fruit))
+                                            dispatch(
+                                                insertInCart({
+                                                    ...fruit,
+                                                    buyId: randomId(),
+                                                })
+                                            )
                                         }
                                         className="p-2 bg-green-700 hover:bg-green-500 ml-4 rounded-lg text-white"
                                     >
