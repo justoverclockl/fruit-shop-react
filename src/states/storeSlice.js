@@ -21,17 +21,21 @@ const storeState = createSlice({
                 state.isLoading = true
             })
             .addCase(getProducts.fulfilled, (state, action) => {
-                state.fruits = action.payload
                 state.isLoading = false
+                state.fruits = action.payload
             })
             .addCase(getProducts.rejected, (state) => {
                 state.isLoading = false
                 state.error = 'Impossibile caricare i dati dal server!'
             })
             .addDefaultCase((state, action) => {
+                state.isLoading = false
                 state.fruits = initialState
             })
     },
 })
 
+export const selectAllProducts = (state) => state.products.fruits
+export const loadingState = (state) => state.products.isLoading
+export const errorState = (state) => state.products.error
 export default storeState.reducer

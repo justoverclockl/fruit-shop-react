@@ -7,7 +7,12 @@ import SingleFruitPopup from './SingleFruitPopup'
 import Social from './Social'
 import ScrollToTop from './ScrollToTop'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProducts } from '../states/storeSlice'
+import {
+    getProducts,
+    selectAllProducts,
+    loadingState,
+    errorState,
+} from '../states/storeSlice'
 import { insertInCart } from '../states/cartSlice'
 
 const Products = () => {
@@ -18,14 +23,13 @@ const Products = () => {
     const togglePopup = () => setPopup(!popup)
 
     // sezione redux
-    const allFruits = useSelector((state) => state.products.fruits)
-    const isLoading = useSelector((state) => state.products.isLoading)
-    const error = useSelector((state) => state.products.error)
+    const allFruits = useSelector(selectAllProducts)
+    const isLoading = useSelector(loadingState)
+    const error = useSelector(errorState)
     const dispatch = useDispatch()
 
     // cart slice
     const personalCart = useSelector((state) => state.cart.cart)
-    console.log(personalCart)
 
     useEffect(() => {
         dispatch(getProducts())
