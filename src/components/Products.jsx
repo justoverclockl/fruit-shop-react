@@ -12,6 +12,7 @@ import {
     selectAllProducts,
     loadingState,
     errorState,
+    productStatus,
 } from '../states/storeSlice'
 import { insertInCart } from '../states/cartSlice'
 
@@ -25,6 +26,7 @@ const Products = () => {
     // sezione redux
     const allFruits = useSelector(selectAllProducts)
     const isLoading = useSelector(loadingState)
+    const fruitStatus = useSelector(productStatus)
     const error = useSelector(errorState)
     const dispatch = useDispatch()
 
@@ -32,8 +34,8 @@ const Products = () => {
     const personalCart = useSelector((state) => state.cart.cart)
 
     useEffect(() => {
-        dispatch(getProducts())
-    }, [dispatch])
+        if (fruitStatus === 'idle') dispatch(getProducts())
+    }, [fruitStatus, dispatch])
 
     return (
         <div className="max-w-[1100px] mx-auto py-8 w-full my-20 min-h-[750px]">
@@ -101,7 +103,9 @@ const Products = () => {
                                 </p>
                                 <div className="text-center">
                                     <button
-                                        onClick={() => addToCart(fruit)}
+                                        onClick={() =>
+                                            dispatch(insertInCart(fruit))
+                                        }
                                         className="p-2 bg-green-700 hover:bg-green-500 ml-4 rounded-lg text-white"
                                     >
                                         Acquista
