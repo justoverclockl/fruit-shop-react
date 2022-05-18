@@ -6,6 +6,9 @@ import SingleFruitPopup from './SingleFruitPopup'
 import Social from './Social'
 import ScrollToTop from './ScrollToTop'
 import { v4 as randomId } from 'uuid'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import ManageSearchIcon from '@mui/icons-material/ManageSearch'
+import EuroIcon from '@mui/icons-material/Euro'
 import { useDispatch, useSelector } from 'react-redux'
 import toast, { Toaster } from 'react-hot-toast'
 import {
@@ -107,7 +110,10 @@ const Products = () => {
                                 </div>
                                 <p className="py-4 text-center">
                                     <span id="price" className="font-bold">
-                                        Prezzo: {fruit.price}€
+                                        Prezzo:
+                                        <span className="text-red-600 ml-2 text-xl">
+                                            <EuroIcon /> {fruit.price}
+                                        </span>
                                     </span>
                                 </p>
                                 <div className="text-center">
@@ -123,6 +129,7 @@ const Products = () => {
                                         ]}
                                         className="p-2 bg-green-700 hover:bg-green-500 ml-4 rounded-lg text-white"
                                     >
+                                        <ShoppingCartIcon />
                                         Acquista
                                     </button>
                                     <button
@@ -132,6 +139,7 @@ const Products = () => {
                                         }}
                                         className="p-2 bg-orange-400 hover:bg-orange-600 ml-4 rounded-lg text-white"
                                     >
+                                        <ManageSearchIcon />
                                         Dettagli
                                     </button>
                                 </div>

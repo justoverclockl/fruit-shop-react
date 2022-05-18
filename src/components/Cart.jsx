@@ -1,8 +1,10 @@
+import React from 'react'
 import { useRef } from 'react'
 import { v4 as randomId } from 'uuid'
 import CloseIcon from '@mui/icons-material/Close'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import PointOfSaleSharpIcon from '@mui/icons-material/PointOfSaleSharp'
+import toast, { Toaster } from 'react-hot-toast'
 import {
     productsInCart,
     totalPrice,
@@ -18,11 +20,22 @@ const Cart = () => {
     const totalItemsInCart = useSelector(cartTotalItems)
     const popupDiv = useRef(null)
 
+    const removedFromCart = () => {
+        toast.success('Prodotto rimosso dal carrello!', {
+            style: {
+                borderRadius: '10px',
+                background: '#911515',
+                color: '#fff',
+            },
+        })
+    }
+
     return (
         <div
             className="absolute z-10 right-[0px] top-[90px] bg-zinc-100 shadow-xl w-fit min-w-[500px] h-fit p-4 rounded-xl"
             ref={popupDiv}
         >
+            <Toaster position="bottom-right" reverseOrder={false} />
             <div>
                 <div className="text-right text-black">
                     <CloseIcon />
@@ -66,7 +79,10 @@ const Cart = () => {
                             {product.price}€
                         </div>
                         <button
-                            onClick={() => dispatch(removeFromCart(product))}
+                            onClick={() => [
+                                removedFromCart(),
+                                dispatch(removeFromCart(product)),
+                            ]}
                         >
                             <DeleteForeverIcon />
                         </button>
