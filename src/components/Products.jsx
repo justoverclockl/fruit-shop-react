@@ -7,6 +7,7 @@ import Social from './Social'
 import ScrollToTop from './ScrollToTop'
 import { v4 as randomId } from 'uuid'
 import { useDispatch, useSelector } from 'react-redux'
+import toast, { Toaster } from 'react-hot-toast'
 import {
     getProducts,
     selectAllProducts,
@@ -21,6 +22,15 @@ const Products = () => {
     const [popupData, setPopupData] = useState(null)
     const [search, setSearch] = useState('')
     const togglePopup = () => setPopup(!popup)
+    const cartSuccess = () => {
+        toast.success('Prodotto Aggiunto al carrello!', {
+            style: {
+                borderRadius: '10px',
+                background: '#333',
+                color: '#fff',
+            },
+        })
+    }
 
     // sezione redux
     const allFruits = useSelector(selectAllProducts)
@@ -37,6 +47,7 @@ const Products = () => {
 
     return (
         <div className="max-w-[1100px] mx-auto py-8 w-full my-20 min-h-[750px]">
+            <Toaster position="bottom-right" reverseOrder={false} />
             <div id="search" className="mb-16 w-full flex items-center">
                 <TextField
                     onChange={(event) => setSearch(event.target.value)}
@@ -101,14 +112,15 @@ const Products = () => {
                                 </p>
                                 <div className="text-center">
                                     <button
-                                        onClick={() =>
+                                        onClick={() => [
+                                            cartSuccess(),
                                             dispatch(
                                                 insertInCart({
                                                     ...fruit,
                                                     buyId: randomId(),
                                                 })
-                                            )
-                                        }
+                                            ),
+                                        ]}
                                         className="p-2 bg-green-700 hover:bg-green-500 ml-4 rounded-lg text-white"
                                     >
                                         Acquista
