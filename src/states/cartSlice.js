@@ -13,16 +13,23 @@ export const cartSlice = createSlice({
     reducers: {
         insertInCart: (state, action) => {
             state.itemInCart += 1
-            state.cart.push(action.payload)
-            state.totalAmount = state.cart
-                .map((price) => {
-                    const parse = parseFloat(
-                        price.price.replace(/,/g, '.')
-                    ).toFixed(2)
-                    return Number(parse)
-                })
-                .reduce((acc, curr) => acc + curr, 0)
-                .toFixed(2)
+            const fruitExist = state.cart.findIndex(
+                (fruit) => fruit.name === action.payload.name
+            )
+            if (fruitExist >= 0) {
+                state.cart[fruitExist].quantity += 1
+            } else {
+                state.cart.push(action.payload)
+                state.totalAmount = state.cart
+                    .map((price) => {
+                        const parse = parseFloat(
+                            price.price.replace(/,/g, '.')
+                        ).toFixed(2)
+                        return Number(parse)
+                    })
+                    .reduce((acc, curr) => acc + curr, 0)
+                    .toFixed(2)
+            }
         },
         removeFromCart: (state, action) => {
             state.itemInCart -= 1

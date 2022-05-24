@@ -52,7 +52,7 @@ const Navbar = () => {
                                     : null}
                             </div>
                             <ShoppingCartIcon onClick={changePopupState} />
-                            {openCart && <Cart popup={openCart} />}
+                            {openCart && <Cart setPopup={setOpenCart} />}
                         </Badge>
                     </li>
                     {isEmpty ? (

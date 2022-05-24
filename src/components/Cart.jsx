@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useRef } from 'react'
 import { v4 as randomId } from 'uuid'
 import CloseIcon from '@mui/icons-material/Close'
@@ -13,7 +13,7 @@ import {
 } from '../states/cartSlice'
 import { useDispatch, useSelector } from 'react-redux'
 
-const Cart = () => {
+const Cart = ({ setPopup }) => {
     const dispatch = useDispatch()
     const insideCart = useSelector(productsInCart)
     const getTotalPrice = useSelector(totalPrice)
@@ -38,7 +38,7 @@ const Cart = () => {
             <Toaster position="bottom-right" reverseOrder={false} />
             <div>
                 <div className="text-right text-black">
-                    <CloseIcon />
+                    <CloseIcon onClick={() => setPopup(false)} />
                 </div>
                 <h1 className="text-gray-600 font-bold text-2xl text-center mb-12">
                     {totalItemsInCart <= 0
@@ -67,14 +67,7 @@ const Cart = () => {
                             />
                             {product.name}
                         </div>
-                        <div className="flex">
-                            <input
-                                id="quantity"
-                                className="w-[50px]"
-                                type="number"
-                                defaultValue={1}
-                            />
-                        </div>
+                        <div className="flex">{product.quantity}</div>
                         <div className="font-bold min-w-[45px] text-right">
                             {product.price}€
                         </div>

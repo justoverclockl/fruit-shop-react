@@ -124,6 +124,7 @@ const Products = () => {
                                                 insertInCart({
                                                     ...fruit,
                                                     buyId: randomId(),
+                                                    quantity: 1,
                                                 })
                                             ),
                                         ]}
