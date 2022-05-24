@@ -10,8 +10,10 @@ import {
     totalPrice,
     cartTotalItems,
     removeFromCart,
+    resetCart,
 } from '../states/cartSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import OrderShippedPopup from './OrderShippedPopup'
 
 const Cart = ({ setPopup }) => {
     const dispatch = useDispatch()
@@ -19,6 +21,9 @@ const Cart = ({ setPopup }) => {
     const getTotalPrice = useSelector(totalPrice)
     const totalItemsInCart = useSelector(cartTotalItems)
     const popupDiv = useRef(null)
+    const [orderShippedPopup, setOrderShippedPopup] = useState(false)
+
+    const handleShippedPopup = () => setOrderShippedPopup(!orderShippedPopup)
 
     const removedFromCart = () => {
         toast.success('Prodotto rimosso dal carrello!', {
@@ -86,10 +91,20 @@ const Cart = ({ setPopup }) => {
                 <div className="bg-green-700 w-full text-white text-center p-2 rounded-lg">
                     Totale: {getTotalPrice} €
                 </div>
-                <button className="bg-amber-500 hover:bg-amber-600 p-3 mt-4 w-full text-white rounded-lg">
+                <button
+                    className="bg-amber-500 hover:bg-amber-600 p-3 mt-4 w-full text-white rounded-lg"
+                    onClick={() => [
+                        setOrderShippedPopup(true),
+                        dispatch(resetCart()),
+                        setTimeout(() => {
+                            setOrderShippedPopup(false)
+                        }, 5000),
+                    ]}
+                >
                     <PointOfSaleSharpIcon /> Paga Ora
                 </button>
             </div>
+            {orderShippedPopup && <OrderShippedPopup />}
         </div>
     )
 }

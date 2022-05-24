@@ -41,7 +41,6 @@ const Register = () => {
                             width: '35ch',
                         },
                     }}
-                    noValidate
                     autoComplete="off"
                 >
                     <div>
@@ -58,6 +57,7 @@ const Register = () => {
                     <div>
                         <TextField
                             required
+                            inputProps={{ pattern: '[a-z]' }}
                             id="email"
                             label="Email - Richiesto"
                             variant="filled"

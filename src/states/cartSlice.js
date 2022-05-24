@@ -18,39 +18,47 @@ export const cartSlice = createSlice({
             )
             if (fruitExist >= 0) {
                 state.cart[fruitExist].quantity += 1
+                state.cart[fruitExist].price =
+                    Number(action.payload.price.replace(/,/g, '.')).toFixed(2) *
+                    state.cart[fruitExist].quantity
             } else {
-                state.cart.push(action.payload)
-                state.totalAmount = state.cart
+                const price = Number(
+                    action.payload.price.replace(/,/g, '.')
+                ).toFixed(2)
+                state.cart.push({ ...action.payload, price })
+            }
+            state.totalAmount = Number(
+                state.cart
                     .map((price) => {
-                        const parse = parseFloat(
-                            price.price.replace(/,/g, '.')
-                        ).toFixed(2)
-                        return Number(parse)
+                        return +price.price
                     })
                     .reduce((acc, curr) => acc + curr, 0)
-                    .toFixed(2)
-            }
+            )
         },
         removeFromCart: (state, action) => {
             state.itemInCart -= 1
             state.cart = state.cart.filter(
-                (cartItem) => cartItem.buyId !== action.payload.buyId
+                (cartItem) => cartItem.id !== action.payload.id
             )
-            state.totalAmount = state.cart
-                .map((price) => {
-                    const parse = parseFloat(
-                        price.price.replace(/,/g, '.')
-                    ).toFixed(2)
-                    return Number(parse)
-                })
-                .reduce((acc, curr) => acc + curr, 0)
-                .toFixed(2)
+            state.totalAmount = Number(
+                state.cart
+                    .map((price) => {
+                        return +price.price
+                    })
+                    .reduce((acc, curr) => acc + curr, 0)
+            )
+        },
+        resetCart: (state) => {
+            state.cart = []
+            state.itemInCart = 0
+            state.totalAmount = 0
         },
     },
 })
 
 export const { insertInCart } = cartSlice.actions
 export const { removeFromCart } = cartSlice.actions
+export const { resetCart } = cartSlice.actions
 export const productsInCart = (state) => state.cart.cart
 export const totalPrice = (state) => state.cart.totalAmount
 export const cartTotalItems = (state) => state.cart.itemInCart
