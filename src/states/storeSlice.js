@@ -35,7 +35,8 @@ const storeState = createSlice({
             .addDefaultCase((state, action) => {
                 if (
                     action.type !== 'cart/insertInCart' &&
-                    action.type !== 'cart/removeFromCart'
+                    action.type !== 'cart/removeFromCart' &&
+                    action.type !== 'cart/resetCart'
                 ) {
                     state.status = 'idle'
                     state.isLoading = false

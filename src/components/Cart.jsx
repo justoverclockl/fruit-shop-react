@@ -4,6 +4,7 @@ import { v4 as randomId } from 'uuid'
 import CloseIcon from '@mui/icons-material/Close'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import PointOfSaleSharpIcon from '@mui/icons-material/PointOfSaleSharp'
+import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart'
 import toast, { Toaster } from 'react-hot-toast'
 import {
     productsInCart,
@@ -37,7 +38,7 @@ const Cart = ({ setPopup }) => {
 
     return (
         <div
-            className="absolute z-10 right-[0px] top-[90px] bg-zinc-100 shadow-xl w-fit min-w-[500px] h-fit p-4 rounded-xl"
+            className="absolute z-10 right-0 top-[90px] bg-zinc-100 shadow-xl w-fit min-w-[500px] h-fit p-4 rounded-xl"
             ref={popupDiv}
         >
             <Toaster position="bottom-right" reverseOrder={false} />
@@ -91,18 +92,26 @@ const Cart = ({ setPopup }) => {
                 <div className="bg-green-700 w-full text-white text-center p-2 rounded-lg">
                     Totale: {getTotalPrice} €
                 </div>
-                <button
-                    className="bg-amber-500 hover:bg-amber-600 p-3 mt-4 w-full text-white rounded-lg"
-                    onClick={() => [
-                        setOrderShippedPopup(true),
-                        dispatch(resetCart()),
-                        setTimeout(() => {
-                            setOrderShippedPopup(false)
-                        }, 5000),
-                    ]}
-                >
-                    <PointOfSaleSharpIcon /> Paga Ora
-                </button>
+                <div className="flex flex-row w-full">
+                    <button
+                        className="bg-amber-500 hover:bg-amber-600 p-3 mt-4 w-full text-white rounded-lg mr-2"
+                        onClick={() => [
+                            setOrderShippedPopup(true),
+                            dispatch(resetCart()),
+                            setTimeout(() => {
+                                setOrderShippedPopup(false)
+                            }, 5000),
+                        ]}
+                    >
+                        <PointOfSaleSharpIcon /> Paga Ora
+                    </button>
+                    <button
+                        className="bg-red-500 hover:bg-red-700 p-3 mt-4 w-full text-white rounded-lg"
+                        onClick={() => dispatch(resetCart())}
+                    >
+                        <RemoveShoppingCartIcon /> Svuota Carrello
+                    </button>
+                </div>
             </div>
             {orderShippedPopup && <OrderShippedPopup />}
         </div>
