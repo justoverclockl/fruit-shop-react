@@ -1,17 +1,21 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-export const getProducts = createAsyncThunk('products/getFruits', async () => {
-    const url = 'https://fruits-develhope.herokuapp.com/api'
-    const response = await fetch(url, { cache: 'force-cache' })
-    return await response.json()
-})
-
 const initialState = {
     fruits: [],
     error: '',
     isLoading: true,
     status: 'idle',
 }
+
+export const getProducts = createAsyncThunk('products/getFruits', async () => {
+    const url = 'https://fruits-develhope.herokuapp.com/api'
+    try {
+        const response = await fetch(url)
+        return await response.json()
+    } catch (err) {
+        throw err
+    }
+})
 
 const storeState = createSlice({
     name: 'products',

@@ -27,17 +27,10 @@ const Footer = () => {
                         <li className="mr-8 mt-2">
                             <a
                                 className="text-grey-darker no-underline hover:text-white"
-                                href="#"
+                                href="https://www.linkedin.com/in/marco-colia-a1a35915a/"
+                                target="_blank"
                             >
-                                Termini di utilizzo
-                            </a>
-                        </li>
-                        <li className="mr-8 mt-2">
-                            <a
-                                className="text-grey-darker no-underline hover:text-white"
-                                href="#"
-                            >
-                                Privacy
+                                Realizzato da Marco Colia
                             </a>
                         </li>
                     </ul>

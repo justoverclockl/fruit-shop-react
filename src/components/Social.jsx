@@ -1,7 +1,6 @@
 import React from 'react'
-import TwitterIcon from '@mui/icons-material/Twitter'
 import FacebookIcon from '@mui/icons-material/Facebook'
-import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
+import LinkedInIcon from '@mui/icons-material/LinkedIn'
 
 const Social = () => {
     return (
@@ -10,25 +9,17 @@ const Social = () => {
                 <li className="w-[160px] h-[60px] flex justify-between items-center ml-[-100px] hover:ml-[-1px] duration-300 bg-blue-600 rounded-r-xl m-2">
                     <a
                         className="flex justify-between items-center w-full text-white"
-                        href="#"
+                        href="https://www.facebook.com/marcothesituation.colia"
                     >
                         Facebook <FacebookIcon fontSize={'large'} />
                     </a>
                 </li>
-                <li className="w-[160px] h-[60px] flex justify-between items-center ml-[-100px] hover:ml-[-1px] duration-300 bg-blue-300 rounded-r-xl m-2">
+                <li className="w-[160px] h-[60px] flex justify-between items-center ml-[-100px] hover:ml-[-1px] duration-300 bg-[#0A66C2] rounded-r-xl m-2">
                     <a
                         className="flex justify-between items-center w-full text-white"
-                        href="#"
+                        href="https://www.linkedin.com/in/marco-colia-a1a35915a/"
                     >
-                        Twitter <TwitterIcon fontSize={'large'} />
-                    </a>
-                </li>
-                <li className="w-[160px] h-[60px] flex justify-between items-center ml-[-100px] hover:ml-[-1px] duration-300 bg-green-500 rounded-r-xl m-2">
-                    <a
-                        className="flex justify-between items-center w-full text-white"
-                        href="#"
-                    >
-                        Email <AlternateEmailIcon fontSize={'large'} />
+                        Linkedin <LinkedInIcon fontSize={'large'} />
                     </a>
                 </li>
             </ul>

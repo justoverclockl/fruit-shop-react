@@ -24,8 +24,6 @@ const Cart = ({ setPopup }) => {
     const popupDiv = useRef(null)
     const [orderShippedPopup, setOrderShippedPopup] = useState(false)
 
-    const handleShippedPopup = () => setOrderShippedPopup(!orderShippedPopup)
-
     const removedFromCart = () => {
         toast.success('Prodotto rimosso dal carrello!', {
             style: {
@@ -100,7 +98,7 @@ const Cart = ({ setPopup }) => {
                             dispatch(resetCart()),
                             setTimeout(() => {
                                 setOrderShippedPopup(false)
-                            }, 5000),
+                            }, 4000),
                         ]}
                     >
                         <PointOfSaleSharpIcon /> Paga Ora

@@ -66,7 +66,7 @@ const Products = () => {
                     <h1 className="font-bold text-xl">{error}</h1>
                 ) : null}
 
-                {isLoading ? <LoadingIndicator /> : false}
+                {!error && isLoading && <LoadingIndicator />}
                 {allFruits.fruits
                     .filter((fruit) => {
                         if (search === '') {
