@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import Badge from '@mui/material/Badge'
 import LogoNavBar from '../assets/logonavbar.png'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
@@ -21,7 +21,7 @@ const Navbar = () => {
     }
 
     return (
-        <div className="flex justify-between items-center px-8 py-8 bg-green-500 text-white">
+        <div className="flex fixed top-0 w-screen z-20 justify-between items-center px-8 py-8 bg-green-500 text-white">
             <div className="flex flex-row items-center">
                 <Link to="/">
                     <img

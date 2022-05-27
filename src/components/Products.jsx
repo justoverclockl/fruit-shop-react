@@ -6,10 +6,9 @@ import SingleFruitPopup from './SingleFruitPopup'
 import Social from './Social'
 import ScrollToTop from './ScrollToTop'
 import { v4 as randomId } from 'uuid'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import ManageSearchIcon from '@mui/icons-material/ManageSearch'
-import EuroIcon from '@mui/icons-material/Euro'
 import { useDispatch, useSelector } from 'react-redux'
+import SearchIcon from '@mui/icons-material/Search'
+import { InputAdornment } from '@mui/material'
 import toast, { Toaster } from 'react-hot-toast'
 import {
     getProducts,
@@ -49,19 +48,26 @@ const Products = () => {
     }, [fruitStatus, dispatch])
 
     return (
-        <div className="max-w-[1100px] mx-auto py-8 w-full my-20 min-h-[750px]">
+        <div className="max-w-[1100px] mt-[8rem] mx-auto py-8 w-full my-20 min-h-[750px]">
             <Toaster position="bottom-right" reverseOrder={false} />
             <div id="search" className="mb-16 w-full flex items-center">
                 <TextField
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <SearchIcon />
+                            </InputAdornment>
+                        ),
+                    }}
                     onChange={(event) => setSearch(event.target.value)}
                     id="filled-basic"
                     label="Cerca il tuo frutto"
                     color="success"
-                    variant="filled"
+                    variant="standard"
                     fullWidth
                 />
             </div>
-            <div className="relative grid mx-auto justify-center items-center w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            <div className="relative grid mx-auto gap-y-12 justify-center items-center w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                 {error !== '' ? (
                     <h1 className="font-bold text-xl">{error}</h1>
                 ) : null}
@@ -81,22 +87,14 @@ const Products = () => {
                     })
                     .map((fruit) => (
                         <div
-                            key={fruit.id}
-                            className="flex flex-col mx-auto justify-center items-center w-[250px]"
+                            key={fruit.name}
+                            className="max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-lg text-center"
                         >
-                            <div id="productName">
-                                <h1 className="font-bold text-2xl">
+                            <div className="px-4 py-2">
+                                <h1 className="text-3xl mt-4 font-bold text-gray-800 uppercase">
                                     {fruit.name}
                                 </h1>
-                            </div>
-                            <div
-                                style={{
-                                    backgroundImage: 'url(' + fruit.image + ')',
-                                }}
-                                className="w-full h-[150px] bg-contain bg-center bg-no-repeat hover:scale-110 duration-500 my-4 overflow-hidden"
-                            ></div>
-                            <div>
-                                <div className="flex flex-wrap items-center text-sm justify-center">
+                                <div className="flex mt-4 flex-wrap items-center text-sm justify-center">
                                     <div className="bg-zinc-200 text-black p-[.2rem] rounded-md mr-2 mb-2">
                                         Carboidrati:{' '}
                                         {fruit.nutritions.carbohydrates}
@@ -108,15 +106,19 @@ const Products = () => {
                                         Grassi: {fruit.nutritions.fat}%
                                     </div>
                                 </div>
-                                <p className="py-4 text-center">
-                                    <span id="price" className="font-bold">
-                                        Prezzo:
-                                        <span className="text-red-600 ml-2 text-xl">
-                                            <EuroIcon /> {fruit.price}
-                                        </span>
-                                    </span>
-                                </p>
-                                <div className="text-center">
+                            </div>
+
+                            <img
+                                className="object-cover w-full h-48 mt-2 mb-6 hover:scale-110 duration-500 overflow-hidden"
+                                src={fruit.image}
+                                alt={fruit.name}
+                            />
+
+                            <div className="flex items-center justify-between px-4 py-2 bg-green-700 py-3">
+                                <h1 className="text-lg font-bold text-white">
+                                    {fruit.price}€
+                                </h1>
+                                <div className="flex">
                                     <button
                                         onClick={() => [
                                             cartSuccess(),
@@ -128,9 +130,8 @@ const Products = () => {
                                                 })
                                             ),
                                         ]}
-                                        className="p-2 bg-green-700 hover:bg-green-500 ml-4 rounded-lg text-white"
+                                        className="mr-2 px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-green-500 rounded hover:bg-green-300 focus:bg-green-200 focus:outline-none"
                                     >
-                                        <ShoppingCartIcon />
                                         Acquista
                                     </button>
                                     <button
@@ -138,9 +139,8 @@ const Products = () => {
                                             setPopupData(fruit)
                                             togglePopup()
                                         }}
-                                        className="p-2 bg-orange-400 hover:bg-orange-600 ml-4 rounded-lg text-white"
+                                        className="px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-orange-600 rounded hover:bg-orange-400 focus:bg-orange-600 focus:outline-none"
                                     >
-                                        <ManageSearchIcon />
                                         Dettagli
                                     </button>
                                 </div>
