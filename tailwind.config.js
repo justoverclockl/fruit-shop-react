@@ -2,6 +2,9 @@ module.exports = {
     content: ['./src/**/*.{js,jsx,ts,tsx}'],
     theme: {
         extend: {
+            backdropGrayscale: {
+                50: '.5',
+            },
             backgroundImage: {
                 ananas: "url('./assets/ananas.jpg')",
                 kiwi: "url('./assets/kiwi.jpg')",
