@@ -18,6 +18,7 @@ import {
     productStatus,
 } from '../states/storeSlice'
 import { insertInCart } from '../states/cartSlice'
+import Likes from './Likes'
 
 const Products = () => {
     const [popup, setPopup] = useState(false)
@@ -50,7 +51,10 @@ const Products = () => {
     return (
         <div className="max-w-[1100px] mt-[8rem] mx-auto py-8 w-full my-20 min-h-[750px]">
             <Toaster position="bottom-right" reverseOrder={false} />
-            <div id="search" className="mb-16 w-full flex items-center">
+            <div
+                id="search"
+                className="mb-16 mx-auto w-[90%] flex justify-center items-center"
+            >
                 <TextField
                     InputProps={{
                         startAdornment: (
@@ -88,7 +92,7 @@ const Products = () => {
                     .map((fruit) => (
                         <div
                             key={fruit.name}
-                            className="max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-lg text-center"
+                            className="relative max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-lg text-center"
                         >
                             <div className="px-4 py-2">
                                 <h1 className="text-3xl mt-4 font-bold text-gray-800 uppercase">
@@ -113,7 +117,9 @@ const Products = () => {
                                 src={fruit.image}
                                 alt={fruit.name}
                             />
-
+                            <div>
+                                <Likes />
+                            </div>
                             <div className="flex items-center justify-between px-4 py-2 bg-green-700 py-3">
                                 <h1 className="text-lg font-bold text-white">
                                     {fruit.price}€

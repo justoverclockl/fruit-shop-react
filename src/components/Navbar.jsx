@@ -22,7 +22,7 @@ const Navbar = () => {
 
     return (
         <div className="flex fixed top-0 w-screen z-20 justify-between items-center px-8 py-8 bg-green-500 text-white">
-            <div className="flex flex-row items-center">
+            <div className="hidden md:flex flex-row items-center">
                 <Link to="/">
                     <img
                         className="w-[50px]"

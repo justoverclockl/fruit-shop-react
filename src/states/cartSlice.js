@@ -27,26 +27,22 @@ export const cartSlice = createSlice({
                 ).toFixed(2)
                 state.cart.push({ ...action.payload, price })
             }
-            state.totalAmount = Number(
-                state.cart
-                    .map((price) => {
-                        return +price.price
-                    })
-                    .reduce((acc, curr) => acc + curr, 0)
-            )
+            state.totalAmount = state.cart
+                .map((price) => {
+                    return Number(price.price)
+                })
+                .reduce((acc, curr) => acc + curr, 0)
         },
         removeFromCart: (state, action) => {
             state.itemInCart -= 1
             state.cart = state.cart.filter(
                 (cartItem) => cartItem.id !== action.payload.id
             )
-            state.totalAmount = Number(
-                state.cart
-                    .map((price) => {
-                        return +price.price
-                    })
-                    .reduce((acc, curr) => acc + curr, 0)
-            )
+            state.totalAmount = state.cart
+                .map((price) => {
+                    return Number(price.price)
+                })
+                .reduce((acc, curr) => acc + curr, 0)
         },
         resetCart: (state) => {
             state.cart = []
