@@ -25,7 +25,11 @@ export const cartSlice = createSlice({
                 const price = Number(
                     action.payload.price.replace(/,/g, '.')
                 ).toFixed(2)
-                state.cart.push({ ...action.payload, price })
+                state.cart.push({
+                    ...action.payload,
+                    price,
+                    unitaryPrice: action.payload.price,
+                })
             }
             state.totalAmount = state.cart
                 .map((price) => {
@@ -35,9 +39,19 @@ export const cartSlice = createSlice({
         },
         removeFromCart: (state, action) => {
             state.itemInCart -= 1
-            state.cart = state.cart.filter(
-                (cartItem) => cartItem.id !== action.payload.id
+            const fruitExist = state.cart.findIndex(
+                (fruit) => fruit.name === action.payload.name
             )
+            if (fruitExist >= 0) {
+                state.cart[fruitExist].quantity -= 1
+                state.cart[fruitExist].price =
+                    Number(
+                        state.cart[fruitExist].unitaryPrice.replace(/,/g, '.')
+                    ) * state.cart[fruitExist].quantity
+                if (state.cart[fruitExist].quantity === 0) {
+                    state.cart.splice(fruitExist, 1)
+                }
+            }
             state.totalAmount = state.cart
                 .map((price) => {
                     return Number(price.price)
