@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useRef } from 'react'
 import { v4 as randomId } from 'uuid'
+import emptyCart from '../assets/empty-cart.png'
 import CloseIcon from '@mui/icons-material/Close'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import PointOfSaleSharpIcon from '@mui/icons-material/PointOfSaleSharp'
@@ -50,6 +51,17 @@ const Cart = ({ setPopup }) => {
                             ? 'Il tuo carrello è vuoto'
                             : 'Prodotti nel Carrello'}
                     </h1>
+                </div>
+                <div className="flex items-center justify-center">
+                    {totalItemsInCart === 0 ? (
+                        <img
+                            className="w-[300px]"
+                            src={emptyCart}
+                            alt="carrello vuoto"
+                        />
+                    ) : (
+                        false
+                    )}
                 </div>
                 <div className="mx-4 mt-4 mb-4 text-gray-700 flex items-center justify-between">
                     <div className="min-w-[150px]">Articolo</div>
