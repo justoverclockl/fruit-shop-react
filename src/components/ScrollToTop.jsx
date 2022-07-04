@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 
 const ScrollToTop = () => {

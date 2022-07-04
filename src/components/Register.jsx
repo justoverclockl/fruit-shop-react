@@ -90,12 +90,9 @@ const Register = () => {
                 <div className="mt-4">
                     <button
                         onClick={handleSubmit}
-                        className="p-2 bg-orange-400 text-white rounded-md mr-2"
+                        className="p-2 bg-orange-600 hover:bg-orange-400 text-white rounded-md mr-2"
                     >
                         Registrati
-                    </button>
-                    <button className="p-2 bg-orange-400 text-white rounded-md mr-2">
-                        Pulisci
                     </button>
                 </div>
             </div>

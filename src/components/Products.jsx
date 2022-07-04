@@ -3,12 +3,14 @@ import LoadingIndicator from './LoadingIndicator'
 import { useEffect } from 'react'
 import TextField from '@mui/material/TextField'
 import SingleFruitPopup from './SingleFruitPopup'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import Social from './Social'
 import ScrollToTop from './ScrollToTop'
 import { v4 as randomId } from 'uuid'
 import { useDispatch, useSelector } from 'react-redux'
 import SearchIcon from '@mui/icons-material/Search'
 import { InputAdornment } from '@mui/material'
+import EditIcon from '@mui/icons-material/Edit'
 import toast, { Toaster } from 'react-hot-toast'
 import {
     getProducts,
@@ -18,12 +20,21 @@ import {
     productStatus,
 } from '../states/storeSlice'
 import { insertInCart } from '../states/cartSlice'
-import Likes from './Likes'
+/*import Likes from './Likes'*/
+import EditFruitModal from './EditFruitModal'
+import DeleteFruitModal from './DeleteFruitModal'
 
 const Products = () => {
     const [popup, setPopup] = useState(false)
     const [popupData, setPopupData] = useState(null)
+    const [editModal, setEditModal] = useState(false)
+    const [editModalData, setEditModalData] = useState(null)
+    const [deleteModal, setDeleteModal] = useState(false)
+    const [deleteModalData, setDeleteModalData] = useState(null)
     const [search, setSearch] = useState('')
+
+    const toggleEditModal = () => setEditModal(!editModal)
+    const toggleDeleteModal = () => setDeleteModal(!deleteModal)
     const togglePopup = () => setPopup(!popup)
     const cartSuccess = () => {
         toast.success('Prodotto Aggiunto al carrello!', {
@@ -78,6 +89,7 @@ const Products = () => {
 
                 {!error && isLoading && <LoadingIndicator />}
                 {allFruits.fruits
+                    // eslint-disable-next-line
                     .filter((fruit) => {
                         if (search === '') {
                             return fruit
@@ -118,7 +130,29 @@ const Products = () => {
                                 alt={fruit.name}
                             />
                             <div>
-                                <Likes />
+                                <div className="mb-4 flex justify-end items-center">
+                                    <button
+                                        onClick={() => [
+                                            toggleDeleteModal(),
+                                            setDeleteModalData(fruit),
+                                        ]}
+                                        className="mr-2 px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-red-600 rounded hover:bg-red-300 focus:bg-green-200 focus:outline-none"
+                                    >
+                                        <DeleteForeverIcon />
+                                    </button>
+                                    <button
+                                        onClick={() => [
+                                            toggleEditModal(),
+                                            setEditModalData(fruit),
+                                        ]}
+                                        className="mr-2 px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-orange-400 rounded hover:bg-orange-300 focus:bg-green-200 focus:outline-none"
+                                    >
+                                        <EditIcon />
+                                    </button>
+                                </div>
+                                {/*<div>
+                                    <Likes />
+                                </div>*/}
                             </div>
                             <div className="flex items-center justify-between px-4 py-2 bg-green-700 py-3">
                                 <h1 className="text-lg font-bold text-white">
@@ -155,6 +189,18 @@ const Products = () => {
                     ))}
                 {popup && (
                     <SingleFruitPopup state={setPopup} fruit={popupData} />
+                )}
+                {editModal && (
+                    <EditFruitModal
+                        setPopup={setEditModal}
+                        data={editModalData}
+                    />
+                )}
+                {deleteModal && (
+                    <DeleteFruitModal
+                        setPopup={setDeleteModal}
+                        data={deleteModalData}
+                    />
                 )}
             </div>
             <ScrollToTop />
