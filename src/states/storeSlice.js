@@ -8,7 +8,7 @@ const initialState = {
 }
 
 export const getProducts = createAsyncThunk('products/getFruits', async () => {
-    const url = 'https://fruits-develhope.herokuapp.com/api'
+    const url = 'https://fruitdevelhope.onrender.com/api'
     try {
         const response = await fetch(url)
         return await response.json()
